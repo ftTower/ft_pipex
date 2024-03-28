@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 23:13:45 by tauer             #+#    #+#             */
-/*   Updated: 2024/03/28 00:21:29 by tauer            ###   ########.fr       */
+/*   Updated: 2024/03/29 00:21:01 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,12 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-//path
-
-typedef struct s_memory
-{
-	char *name;
-	struct s_memory *next;
-}	t_memory;
-
 typedef struct s_arg
 {
+	char **name;
 	char *type;
 	int	pos;
+	char *path;
 	struct s_arg *next;
 }		t_arg;
 
@@ -44,14 +38,25 @@ typedef struct s_env
 
 typedef struct s_data
 {
-	t_memory mem;
-	t_arg arg;
+	t_arg *arg;
 	t_env env;
 	
 } t_data;
 
+void	terror(char *err_msg);
+void	print_data(t_data data);
+void	free_tab(char **tab);
+
+
 size_t	ft_strlen(const char *str);
 bool	ft_strncmp(const char *s1, const char *s2, size_t n);
 char	**ft_split(char *str, char *charset);
+
+void	null_data(t_data *data);
+bool	set_env(int argc, char **argv, char **envp, t_data *data);
+
+
+bool	set_arg(t_data *data);
+void	free_list(t_data *data);
 
 #endif
