@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 00:19:43 by tauer             #+#    #+#             */
-/*   Updated: 2024/03/28 00:20:59 by tauer            ###   ########.fr       */
+/*   Updated: 2024/03/29 14:14:55 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,4 +121,21 @@ char	**ft_split(char *str, char *charset)
 		return (NULL);
 	tab_split = inoutput_split(str, charset);
 	return (tab_split);
+}
+
+char	*ft_strdup(const char *s)
+{
+	size_t len_s;
+	char *str;
+	char *ptr;
+
+	len_s = ft_strlen(s);
+	str = (char *)malloc(sizeof(char) * (len_s + 1));
+	if (!str)
+		return (NULL);
+	ptr = str;
+	while (len_s-- > 0)
+		*str++ = *s++;
+	*str = '\0';
+	return (ptr);
 }

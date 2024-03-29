@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 22:28:03 by tauer             #+#    #+#             */
-/*   Updated: 2024/03/29 00:24:56 by tauer            ###   ########.fr       */
+/*   Updated: 2024/03/29 15:09:24 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,34 @@ void	terror(char *err_msg)
 	printf("[ %s ]\n", err_msg);
 }
 
+void	print_command(t_data *data, t_arg *current)
+{
+	size_t	i;
+
+	i = 0;
+	printf("[%d][%s][%s]", current->pos, current->type, current->path);
+	while (current->name[i])
+		printf("[%s]", current->name[i++]);
+	printf("\n");
+}
+
 void	print_arg(t_data *data)
 {
-	t_arg *current;
+	t_arg	*current;
 
 	current = data->arg;
-	while(current)
+	printf("\n");
+	while (current)
 	{
-		// printf("cc\n");
-		printf("%d - %s [%s]\n", current->pos, current->name[0], current->type);
+		if (ft_strncmp(current->type, "CMD", 2))
+			print_command(data, current);
+		else if (ft_strncmp(current->type, "IFD", 2)
+			|| ft_strncmp(current->type, "OFD", 2))
+			printf("\n[%d][%s][%d][%s]\n\n", current->pos, current->type,
+				current->fd, current->name[0]);
+		else
+			printf("[%d][%s][%d][%s][%s][%p]\n", current->pos, current->type,
+				current->fd, current->path, current->name[0], current->next);
 		current = current->next;
 	}
 }

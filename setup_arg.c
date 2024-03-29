@@ -6,19 +6,74 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 22:36:00 by tauer             #+#    #+#             */
-/*   Updated: 2024/03/29 00:27:23 by tauer            ###   ########.fr       */
+/*   Updated: 2024/03/29 15:06:34 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./ft_pipex.h"
 
-bool	is_cmd(t_data *data, size_t i, t_arg *arg)
+bool	access_bol(char *name)
+{
+	if (access(name, X_OK | F_OK) == -1)
+		return (false);
+	return (true);
+}
+
+bool	is_brut(t_data *data, t_arg *arg)
 {
 	char	**args;
 
-	if (execve(arg->name[0], arg->name, data->env.envp) == -1)
-		return (true);
+	if (access_bol(arg->name[0]))
+		return (arg->path = ft_strdup(arg->name[0]), arg->type = "CMD", true);
 	return (false);
+}
+
+bool	is_nopath(t_data *data, t_arg *arg)
+{
+	char	*path;
+	char	*full_path;
+	size_t	i;
+
+	i = 0;
+	while (data->env.path[i])
+	{
+		path = path_maker(data->env.path[i], "/");
+		full_path = path_maker(path, arg->name[0]);
+		if (access_bol(full_path))
+			return (arg->path = path, arg->type = "CMD", free(full_path), true);
+		free(path);
+		free(full_path);
+		i++;
+	}
+	return (false);
+}
+
+bool	is_fd(t_data *data, t_arg *arg)
+{
+	int	fd;
+
+	if (arg->pos == 0)
+	{
+		fd = open(arg->name[0], O_RDONLY);
+		if (fd > 0)
+			return (arg->fd = fd, arg->type = "IFD", arg->path = NULL, true);
+	}
+	else if (arg->pos == data->env.argc - 1)
+	{
+		fd = open(arg->name[0], O_TRUNC | O_CREAT | O_RDWR, 0000644);
+		if (fd > 0)
+			return (arg->fd = fd, arg->type = "OFD", arg->path = NULL, true);
+	}
+	return (false);
+}
+
+bool	choose_type(t_data *data, t_arg *arg)
+{
+	if (is_fd(data, arg))
+		return (false);
+	else if ((is_brut(data, arg) && arg->path) || is_nopath(data, arg))
+		return (arg->fd = -1, false);
+	return (arg->path = NULL, arg->fd = -1, arg->type = "ERR", false);
 }
 
 bool	data_element(t_data *data, t_arg *arg, t_arg *list, size_t i)
@@ -26,8 +81,9 @@ bool	data_element(t_data *data, t_arg *arg, t_arg *list, size_t i)
 	arg->type = NULL;
 	arg->name = ft_split(data->env.argv[i], " ");
 	if (!arg->name)
-		return (free_tab(data->env.path), free_list(data), true);
-	return (arg->pos = i, arg->next = list, data->arg = arg, false);
+		return (terror("failed to split name in list"), free(arg), true);
+	return (arg->pos = i, arg->next = list, data->arg = arg, choose_type(data,
+			arg));
 }
 
 bool	add_element(t_data *data, size_t i)
@@ -40,10 +96,13 @@ bool	add_element(t_data *data, size_t i)
 		list = data->arg;
 	arg = malloc(sizeof(t_arg));
 	if (!arg)
-		return (free_tab(data->env.path), terror("malloc list"), true);
+		return (terror("malloc list"), true);
 	else if (!list)
+	{
 		free(data->arg);
-	return (data_element(data, arg, list, i), false);
+		data->arg = NULL;
+	}
+	return (data_element(data, arg, list, i));
 }
 
 void	free_list(t_data *data)
@@ -52,13 +111,33 @@ void	free_list(t_data *data)
 	t_arg	*temp;
 
 	current = data->arg;
+	if (!current)
+		return ;
 	while (current)
 	{
 		temp = current->next;
-		free_tab(current->name);
+		if (current->fd != -1)
+			close(current->fd);
+		if (current->name)
+			free_tab(current->name);
+		if (current->path)
+			free(current->path);
 		free(current);
 		current = temp;
 	}
+}
+
+bool	init_arg(t_data *data)
+{
+	data->arg = malloc(sizeof(t_arg));
+	if (!data->arg)
+		return (terror("error initing the list"), true);
+	data->arg->name = NULL;
+	data->arg->next = NULL;
+	data->arg->path = NULL;
+	data->arg->type = NULL;
+	data->arg->pos = 0;
+	return (false);
 }
 
 bool	create_list(t_data *data)
@@ -67,15 +146,18 @@ bool	create_list(t_data *data)
 	size_t	i;
 
 	i = 0;
+	if (init_arg(data))
+		return (true);
 	while (data->env.argv[i])
 		if (add_element(data, i++))
-			return (terror("free list"), true);
+			return (terror("failed to add element in list"), free_list(data),
+				true);
 	return (false);
 }
 
 bool	set_arg(t_data *data)
 {
 	if (create_list(data))
-		return (free_tab(data->env.path), terror("new list"), false);
+		return (free_tab(data->env.path), terror("new list"), true);
 	return (false);
 }

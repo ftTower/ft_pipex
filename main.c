@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 23:13:32 by tauer             #+#    #+#             */
-/*   Updated: 2024/03/28 23:49:22 by tauer            ###   ########.fr       */
+/*   Updated: 2024/03/29 13:08:38 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,5 @@ int	main(int argc, char **argv, char **envp)
 	if (setup(argc, argv, envp, &data))
 		return (1);
 	print_data(data);
-	return (free_list(&data), free_tab(data.env.path) ,0);
+	return (free_list(&data), free_tab(data.env.path), 0);
 }
