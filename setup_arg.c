@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 22:36:00 by tauer             #+#    #+#             */
-/*   Updated: 2024/03/29 15:06:34 by tauer            ###   ########.fr       */
+/*   Updated: 2024/03/30 23:57:17 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ bool	is_nopath(t_data *data, t_arg *arg)
 		path = path_maker(data->env.path[i], "/");
 		full_path = path_maker(path, arg->name[0]);
 		if (access_bol(full_path))
-			return (arg->path = path, arg->type = "CMD", free(full_path), true);
+			return (arg->path = full_path, arg->type = "CMD", free(path), true);
 		free(path);
 		free(full_path);
 		i++;
@@ -56,13 +56,13 @@ bool	is_fd(t_data *data, t_arg *arg)
 	{
 		fd = open(arg->name[0], O_RDONLY);
 		if (fd > 0)
-			return (arg->fd = fd, arg->type = "IFD", arg->path = NULL, true);
+			return (data->env.in_fd = fd ,arg->fd = fd, arg->type = "IFD", arg->path = NULL, true);
 	}
 	else if (arg->pos == data->env.argc - 1)
 	{
 		fd = open(arg->name[0], O_TRUNC | O_CREAT | O_RDWR, 0000644);
 		if (fd > 0)
-			return (arg->fd = fd, arg->type = "OFD", arg->path = NULL, true);
+			return (data->env.ou_fd = fd ,arg->fd = fd, arg->type = "OFD", arg->path = NULL, true);
 	}
 	return (false);
 }
@@ -82,8 +82,8 @@ bool	data_element(t_data *data, t_arg *arg, t_arg *list, size_t i)
 	arg->name = ft_split(data->env.argv[i], " ");
 	if (!arg->name)
 		return (terror("failed to split name in list"), free(arg), true);
-	return (arg->pos = i, arg->next = list, data->arg = arg, choose_type(data,
-			arg));
+	return (arg->pos = data->env.argc - i - 1, arg->next = list,
+		data->arg = arg, choose_type(data, arg));
 }
 
 bool	add_element(t_data *data, size_t i)
@@ -140,18 +140,53 @@ bool	init_arg(t_data *data)
 	return (false);
 }
 
+void	swap_element(t_data *data)
+{
+	t_arg	*copy_first;
+	t_arg	*copy_list;
+
+	copy_first = data->arg;
+	copy_list = copy_first->next;
+	copy_first->next = NULL;
+	while (copy_list->next)
+	{
+		printf("%s\n", data->arg->name[0]);
+		copy_list = copy_list->next;
+	}
+	copy_list->next = copy_first;
+	data->arg = copy_list;
+	printf("\n\n");
+}
+
+void	reverse_argv(t_data *data)
+{
+	size_t	i;
+	char	*temp;
+
+	i = 0;
+	while (i < data->env.argc / 2)
+	{
+		temp = data->env.argv[i];
+		data->env.argv[i] = data->env.argv[data->env.argc - 1 - i];
+		data->env.argv[data->env.argc - 1 - i] = temp;
+		i++;
+	}
+}
+
 bool	create_list(t_data *data)
 {
 	t_arg	*arg;
 	size_t	i;
 
 	i = 0;
+	reverse_argv(data);
 	if (init_arg(data))
 		return (true);
 	while (data->env.argv[i])
 		if (add_element(data, i++))
 			return (terror("failed to add element in list"), free_list(data),
 				true);
+	reverse_argv(data);
 	return (false);
 }
 

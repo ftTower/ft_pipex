@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 23:13:45 by tauer             #+#    #+#             */
-/*   Updated: 2024/03/29 14:40:44 by tauer            ###   ########.fr       */
+/*   Updated: 2024/03/30 23:52:34 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 # include <fcntl.h>
+# include <sys/wait.h>
 typedef struct s_arg
 {
 	char **name;
@@ -34,6 +35,8 @@ typedef struct s_env
 	char **envp;
 	int argc;
 	char **path;
+	int	in_fd;
+	int ou_fd;
 	
 }	t_env;
 
