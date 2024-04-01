@@ -6,11 +6,12 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 13:58:52 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/01 14:26:03 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/01 17:55:41 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <all.h>
+
 
 bool no_bonus(t_data *data, t_arg *arg) {
     int tube[2];
@@ -44,7 +45,6 @@ bool no_bonus(t_data *data, t_arg *arg) {
         if (pid2 == -1)
             return true;
         else if (pid2 != 0) {
-            // Processus parent
             close(tube2[0]);
             dup2(data->env.ou_fd, STDOUT_FILENO);
             close(data->env.ou_fd);

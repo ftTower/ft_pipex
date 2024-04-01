@@ -37,13 +37,11 @@ fclean: clean
 	@echo "Clean : ./$(NAME)"
 
 pip:
-	@./$(NAME) $(ARGV)
+	@valgrind ./$(NAME) $(ARGV)
 
 valgrind: clear
-	@touch file1.txt
 	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --trace-children=yes ./$(NAME) $(ARGV)
 
 re: fclean all clear
-	@touch file1.txt
 
 .PHONY: all clean fclean re
