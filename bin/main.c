@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 23:05:38 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/01 14:25:26 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/01 22:45:25 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 
-	printf("\033c");
+	// printf("\033c");
 	if (setup(argc, argv, envp, &data))
 		return (1);
 	print_data(data);
