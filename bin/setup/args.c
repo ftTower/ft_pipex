@@ -6,64 +6,11 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 22:36:00 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/01 13:56:21 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/01 14:16:40 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <all.h>
-
-bool	access_bol(char *name)
-{
-	if (access(name, X_OK | F_OK) == -1)
-		return (false);
-	return (true);
-}
-
-bool	is_brut(t_arg *arg)
-{
-	if (access_bol(arg->name[0]))
-		return (arg->path = ft_strdup(arg->name[0]), arg->type = "CMD", true);
-	return (false);
-}
-
-bool	is_nopath(t_data *data, t_arg *arg)
-{
-	char	*path;
-	char	*full_path;
-	size_t	i;
-
-	i = 0;
-	while (data->env.path[i])
-	{
-		path = path_maker(data->env.path[i], "/");
-		full_path = path_maker(path, arg->name[0]);
-		if (access_bol(full_path))
-			return (arg->path = full_path, arg->type = "CMD", free(path), true);
-		free(path);
-		free(full_path);
-		i++;
-	}
-	return (false);
-}
-
-bool	is_fd(t_data *data, t_arg *arg)
-{
-	int	fd;
-
-	if (arg->pos == 0)
-	{
-		fd = open(arg->name[0], O_RDONLY);
-		if (fd > 0)
-			return (data->env.in_fd = fd ,arg->fd = fd, arg->type = "IFD", arg->path = NULL, true);
-	}
-	else if (arg->pos == data->env.argc - 1)
-	{
-		fd = open(arg->name[0], O_TRUNC | O_CREAT | O_WRONLY, 0000644);
-		if (fd > 0)
-			return (data->env.ou_fd = fd ,arg->fd = fd, arg->type = "OFD", arg->path = NULL, true);
-	}
-	return (false);
-}
 
 bool	choose_type(t_data *data, t_arg *arg)
 {
@@ -103,28 +50,6 @@ bool	add_element(t_data *data, size_t i)
 	return (data_element(data, arg, list, i));
 }
 
-void	free_list(t_data *data)
-{
-	t_arg	*current;
-	t_arg	*temp;
-
-	current = data->arg;
-	if (!current)
-		return ;
-	while (current)
-	{
-		temp = current->next;
-		if (current->fd != -1)
-			close(current->fd);
-		if (current->name)
-			free_tab(current->name);
-		if (current->path)
-			free(current->path);
-		free(current);
-		current = temp;
-	}
-}
-
 bool	init_arg(t_data *data)
 {
 	data->arg = malloc(sizeof(t_arg));
@@ -136,39 +61,6 @@ bool	init_arg(t_data *data)
 	data->arg->type = NULL;
 	data->arg->pos = 0;
 	return (false);
-}
-
-void	swap_element(t_data *data)
-{
-	t_arg	*copy_first;
-	t_arg	*copy_list;
-
-	copy_first = data->arg;
-	copy_list = copy_first->next;
-	copy_first->next = NULL;
-	while (copy_list->next)
-	{
-		printf("%s\n", data->arg->name[0]);
-		copy_list = copy_list->next;
-	}
-	copy_list->next = copy_first;
-	data->arg = copy_list;
-	printf("\n\n");
-}
-
-void	reverse_argv(t_data *data)
-{
-	size_t	i;
-	char	*temp;
-
-	i = 0;
-	while (i < (size_t)data->env.argc / 2)
-	{
-		temp = data->env.argv[i];
-		data->env.argv[i] = data->env.argv[data->env.argc - 1 - i];
-		data->env.argv[data->env.argc - 1 - i] = temp;
-		i++;
-	}
 }
 
 bool	create_list(t_data *data)

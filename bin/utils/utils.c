@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 13:59:34 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/01 14:03:26 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/01 14:15:51 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,19 @@ char	*ft_strdup(const char *s)
 		*str++ = *s++;
 	*str = '\0';
 	return (ptr);
+}
+
+void	reverse_argv(t_data *data)
+{
+	size_t	i;
+	char	*temp;
+
+	i = 0;
+	while (i < (size_t)data->env.argc / 2)
+	{
+		temp = data->env.argv[i];
+		data->env.argv[i] = data->env.argv[data->env.argc - 1 - i];
+		data->env.argv[data->env.argc - 1 - i] = temp;
+		i++;
+	}
 }

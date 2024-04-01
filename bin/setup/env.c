@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   setup.c                                            :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 22:25:18 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/01 13:56:23 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/01 14:17:23 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ bool	set_env(int argc, char **argv, char **envp, t_data *data)
 	return (false);
 }
 
-void	null_data(t_data *data)
+void	null_env(t_data *data)
 {
 	data->env.argc = 0;
 	data->env.argv = NULL;

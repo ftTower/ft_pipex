@@ -8,7 +8,7 @@ CC = cc
 
 OBJ = $(patsubst $(SRC_DIR)/%.c,$(BUILD_DIR)/%.o,$(SRC))
 
-ARGV = ./bin/main.c cat "grep exec" output.txt
+ARGV = ./bin/utils/exec.c /usr/bin/cat "grep exec" output.txt
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
@@ -37,7 +37,6 @@ fclean: clean
 	@echo "Clean : ./$(NAME)"
 
 pip:
-	@touch file1.txt
 	@./$(NAME) $(ARGV)
 
 valgrind: clear
