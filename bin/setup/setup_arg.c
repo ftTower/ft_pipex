@@ -6,11 +6,11 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 22:36:00 by tauer             #+#    #+#             */
-/*   Updated: 2024/03/31 17:34:59 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/01 13:56:21 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./ft_pipex.h"
+#include <all.h>
 
 bool	access_bol(char *name)
 {
@@ -19,10 +19,8 @@ bool	access_bol(char *name)
 	return (true);
 }
 
-bool	is_brut(t_data *data, t_arg *arg)
+bool	is_brut(t_arg *arg)
 {
-	char	**args;
-
 	if (access_bol(arg->name[0]))
 		return (arg->path = ft_strdup(arg->name[0]), arg->type = "CMD", true);
 	return (false);
@@ -71,7 +69,7 @@ bool	choose_type(t_data *data, t_arg *arg)
 {
 	if (is_fd(data, arg))
 		return (false);
-	else if ((is_brut(data, arg) && arg->path) || is_nopath(data, arg))
+	else if ((is_brut(arg) && arg->path) || is_nopath(data, arg))
 		return (arg->fd = -1, false);
 	return (arg->path = NULL, arg->fd = -1, arg->type = "ERR", false);
 }
@@ -164,7 +162,7 @@ void	reverse_argv(t_data *data)
 	char	*temp;
 
 	i = 0;
-	while (i < data->env.argc / 2)
+	while (i < (size_t)data->env.argc / 2)
 	{
 		temp = data->env.argv[i];
 		data->env.argv[i] = data->env.argv[data->env.argc - 1 - i];
@@ -175,7 +173,6 @@ void	reverse_argv(t_data *data)
 
 bool	create_list(t_data *data)
 {
-	t_arg	*arg;
 	size_t	i;
 
 	i = 0;

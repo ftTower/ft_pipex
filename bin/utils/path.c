@@ -6,11 +6,11 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 13:54:46 by tauer             #+#    #+#             */
-/*   Updated: 2024/03/29 13:55:14 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/01 13:56:27 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./ft_pipex.h"
+#include <all.h>
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {

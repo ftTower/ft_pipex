@@ -6,18 +6,18 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 22:28:03 by tauer             #+#    #+#             */
-/*   Updated: 2024/03/29 15:09:24 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/01 13:56:12 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./ft_pipex.h"
+#include <all.h>
 
 void	terror(char *err_msg)
 {
 	printf("[ %s ]\n", err_msg);
 }
 
-void	print_command(t_data *data, t_arg *current)
+void	print_command(t_arg *current)
 {
 	size_t	i;
 
@@ -37,7 +37,7 @@ void	print_arg(t_data *data)
 	while (current)
 	{
 		if (ft_strncmp(current->type, "CMD", 2))
-			print_command(data, current);
+			print_command(current);
 		else if (ft_strncmp(current->type, "IFD", 2)
 			|| ft_strncmp(current->type, "OFD", 2))
 			printf("\n[%d][%s][%d][%s]\n\n", current->pos, current->type,

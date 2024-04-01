@@ -6,36 +6,11 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 00:19:43 by tauer             #+#    #+#             */
-/*   Updated: 2024/03/29 14:14:55 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/01 14:00:14 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./ft_pipex.h"
-
-size_t	ft_strlen(const char *str)
-{
-	int	i;
-
-	i = 0;
-	if (!str)
-		return (0);
-	while (str[i])
-		i++;
-	return (i);
-}
-
-bool	ft_strncmp(const char *s1, const char *s2, size_t n)
-{
-	while (n > 0)
-	{
-		if (*s1 != *s2 || *s1 == '\0' || *s2 == '\0')
-			return (false);
-		s1++;
-		s2++;
-		n--;
-	}
-	return (true);
-}
+#include <all.h>
 
 int	is_sep(char c, char *charset)
 {
@@ -121,21 +96,4 @@ char	**ft_split(char *str, char *charset)
 		return (NULL);
 	tab_split = inoutput_split(str, charset);
 	return (tab_split);
-}
-
-char	*ft_strdup(const char *s)
-{
-	size_t len_s;
-	char *str;
-	char *ptr;
-
-	len_s = ft_strlen(s);
-	str = (char *)malloc(sizeof(char) * (len_s + 1));
-	if (!str)
-		return (NULL);
-	ptr = str;
-	while (len_s-- > 0)
-		*str++ = *s++;
-	*str = '\0';
-	return (ptr);
 }

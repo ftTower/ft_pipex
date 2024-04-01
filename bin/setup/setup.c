@@ -6,11 +6,11 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 22:25:18 by tauer             #+#    #+#             */
-/*   Updated: 2024/03/29 13:08:29 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/01 13:56:23 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./ft_pipex.h"
+#include <all.h>
 
 bool	set_var(char *const envp[], char **out_var, const char *name_var)
 {
