@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 23:13:45 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/01 14:23:24 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/02 15:32:25 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,6 @@ bool init_arg(t_data *data);
 
 char *path_maker(const char *path, const char *exec_name);
 bool texec(t_data data, t_arg arg);
+char	*ft_itoa(int nb);
 
 #endif

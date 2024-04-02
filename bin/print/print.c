@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 22:28:03 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/01 13:56:12 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/02 16:41:39 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,24 +49,80 @@ void	print_arg(t_data *data)
 	}
 }
 
+void	set_envl(t_data *data)
+{
+	data->envl.max_size_line = 117;
+	data->envl.argc_pos = 17;
+	data->envl.status_pos = 1;
+}
+
+bool	print_stopper(t_data *data, int pos)
+{
+	// printf("%d - %d", pos, data->envl.argc_pos);
+	if (pos == data->envl.max_size_line || pos == data->envl.argc_pos - 3
+		|| pos == data->envl.status_pos - 3)
+		return (printf("\033[48;5;248m..\033[0m\033[0;47m\033[0m"),true);
+	return (false);
+}
+
+void	print_limited(t_data *data, char *str, int number, int *pos)
+{
+	int		i;
+	char	*num;
+
+	i = 0;
+	if (!str && number == 0)
+		*pos += printf("\033[48;5;248m \033[0m\033[0;47m\033[0m") - 26;
+	if (str != NULL)
+	{
+		while (str[i] && !print_stopper(data, *pos))
+		{
+			*pos += printf("\033[48;5;248m%c\033[0m\033[0;47m\033[0m", str[i++])
+				- 26;
+		}
+		i = 0;
+	}
+	if (number != 0)
+	{
+		num = ft_itoa(number);
+		while (num[i] && !print_stopper(data, *pos))
+		{
+			*pos += printf("\033[48;5;248m%c\033[0m\033[0;47m\033[0m", num[i++])
+				- 26;
+		}
+		free(num);
+	}
+}
+
+void	first_line(t_data *data)
+{
+	int	pos;
+
+	pos = 0;
+	while (pos < data->envl.max_size_line)
+	{
+		if (pos == data->envl.status_pos)
+			print_limited(data, "status : ", data->env.status, &pos);
+		else if (pos == data->envl.argc_pos)
+			print_limited(data, "argc : ", data->env.argc, &pos);
+		else
+			print_limited(data, NULL, 0, &pos);
+	}
+	printf("\n%d\n", pos);
+}
+
+void	env_line(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	first_line(data);
+	printf("\n%d", data->env.argc);
+}
+
 void	print_data(t_data data)
 {
-	printf("argc : %d\n", data.env.argc);
-	if (data.env.argv)
-	{
-		printf("argv : ");
-		for (int i = 0; data.env.argv[i]; i++)
-			printf("%s ", data.env.argv[i]);
-		printf("\n");
-	}
-	if (data.env.envp)
-		printf("envp : ok\n");
-	if (data.env.path)
-	{
-		printf("path : ");
-		for (int i = 0; data.env.path[i]; i++)
-			printf("%s - ", data.env.path[i]);
-		printf("\n");
-	}
+	set_envl(&data);
+	env_line(&data);
 	print_arg(&data);
 }

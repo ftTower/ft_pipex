@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 23:05:38 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/01 22:45:25 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/02 15:56:30 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ bool    acces_no_bonus(t_data *data, t_arg *current)
 	{
 		while(current)
 		{
-			if (current->pos == 1 || current->pos == 2)
+			if (current->pos == 1)
 				no_bonus(data, current);
 			current = current->next;
 		}
@@ -33,15 +33,15 @@ bool	pipex(t_data *data)
 	
 	current = data->arg;
 	if (acces_no_bonus(data, current))
-        return (true);
-	return (false);	
+        return (terror("no bonus"), false);
+	return (true);	
 }
 
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 
-	// printf("\033c");
+	printf("\033c");
 	if (setup(argc, argv, envp, &data))
 		return (1);
 	print_data(data);

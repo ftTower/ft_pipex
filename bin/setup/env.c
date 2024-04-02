@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 22:25:18 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/01 14:17:23 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/02 16:42:45 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,17 +47,16 @@ bool	set_env(int argc, char **argv, char **envp, t_data *data)
 {
 	if (argc < 4 || !argv || !envp)
 		return (terror("bad args"), true);
-	data->env.argc = argc - 1;
-	data->env.argv = argv + 1;
 	data->env.envp = envp;
 	if (set_path(data))
 		return (true);
-	return (false);
+	return (data->env.argc = argc - 1, data->env.argv = argv + 1, false);
 }
 
 void	null_env(t_data *data)
 {
 	data->env.argc = 0;
+	data->env.status = 1551;
 	data->env.argv = NULL;
 	data->env.envp = NULL;
 	data->env.path = NULL;
