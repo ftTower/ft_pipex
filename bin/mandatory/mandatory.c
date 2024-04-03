@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 13:58:52 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/02 16:00:06 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/03 18:29:24 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,14 @@ bool	no_bonus(t_data *data, t_arg *arg)
 			close(tube2[1]);
 			dup2(tube2[0], STDIN_FILENO);
 			close(tube2[0]);
-			// texec(*data, *arg);
+			texec(*data, *arg);
 			
-			free_list(data);
-			free_tab(data->env.path);
-			exit(1);
+			// free_list(data);
+			// free_tab(data->env.path);
+			// exit(1);
 		}
 	}
 	return (false);
 }
+
+

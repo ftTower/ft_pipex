@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 13:53:14 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/02 15:11:48 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/03 20:05:52 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,6 @@ typedef struct s_arg
 	struct s_arg *next;
 }		t_arg;
 
-typedef struct s_envL
-{
-	int	max_size_line;
-
-	int argv_pos;
-	int envp_pos;
-	int argc_pos;
-	int path_pos;
-	int status_pos;
-	int in_fd_pos;
-	int ou_fd_pos;
-	
-}	t_envL;
 
 typedef struct s_env
 {
@@ -44,16 +31,18 @@ typedef struct s_env
 	int argc;
 	char **path;
 	int	status;
+	
 	int	in_fd;
 	int ou_fd;
-	
+	int	mid_fd;
+	int	pos;
+
 }	t_env;
 
 typedef struct s_data
 {
 	t_arg *arg;
 	t_env env;
-	t_envL envl;
 	
 } t_data;
 

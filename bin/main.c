@@ -6,35 +6,35 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 23:05:38 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/02 15:56:30 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/03 18:33:06 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <all.h>
 
-bool    acces_no_bonus(t_data *data, t_arg *current)
+bool	acces_no_bonus(t_data *data, t_arg *current)
 {
-    if (data->env.argc == 4)
+	if (data->env.argc == 4)
 	{
-		while(current)
-		{
-			if (current->pos == 1)
-				no_bonus(data, current);
-			current = current->next;
-		}
-        return (true);
+		current = current->next;
+		no_bonus(data, current);
+		free_list(data);
+		free_tab(data->env.path);
+		return (false);
 	}
-    return (false);
+	return (true);
 }
 
 bool	pipex(t_data *data)
 {
-	t_arg *current;
-	
-	current = data->arg;
-	if (acces_no_bonus(data, current))
-        return (terror("no bonus"), false);
-	return (true);	
+	if (data->env.argc >= 4)
+	{
+		if (data->env.argc == 4)
+			no_bonus(data, data->arg->next);
+		bonus(data, data->arg->next);
+		return (false);
+	}
+	return (terror("too few args"), true);
 }
 
 int	main(int argc, char **argv, char **envp)

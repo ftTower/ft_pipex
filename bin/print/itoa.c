@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:32:10 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/02 15:32:19 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/03 18:04:15 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int	mal_size(int nb, long int nbr, int size)
 
 char	*ft_itoa(int nb)
 {
-	long int nbr;
+	long int	nbr;
 
 	nbr = nb;
 	if (nb < 0)

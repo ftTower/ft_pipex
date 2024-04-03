@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 22:25:18 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/02 16:42:45 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/03 18:05:24 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ bool	set_env(int argc, char **argv, char **envp, t_data *data)
 void	null_env(t_data *data)
 {
 	data->env.argc = 0;
-	data->env.status = 1551;
+	data->env.status = 0;
 	data->env.argv = NULL;
 	data->env.envp = NULL;
 	data->env.path = NULL;
