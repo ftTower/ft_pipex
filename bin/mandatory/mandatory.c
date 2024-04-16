@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 13:58:52 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/03 18:29:24 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/16 21:34:05 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,8 @@ bool	no_bonus(t_data *data, t_arg *arg)
 	int	pid2;
 
 	pid = 0;
-	// Création du tube
 	if (pipe(tube) == -1)
 		return (true);
-	// Création d'un processus enfant
 	pid = fork();
 	if (pid == -1)
 		return (true);

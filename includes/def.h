@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 23:13:45 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/03 18:50:32 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/16 22:39:29 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	null_env(t_data *data);
 
 
 bool no_bonus(t_data *data, t_arg *arg);
-void	bonus(t_data *data, t_arg *arg);
+void	bonus(t_data *data);
 
 void terror(char *err_msg);
 void print_data(t_data data);

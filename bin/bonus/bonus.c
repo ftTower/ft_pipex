@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 18:29:11 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/03 20:10:34 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/16 22:39:05 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ t_arg	*choose_arg(t_data *data)
 	return (NULL);
 }
 
-void	choose_proccess(t_data *data)
-{
+// void	choose_proccess(t_data *data)
+// {
 	
-}
+// }
 
 void	forker(t_data *data)
 {
@@ -64,11 +64,11 @@ void	forker(t_data *data)
 	pid = fork();
 	if (pid == -1)
 		return ;
-	printf("%d - %s\n", data->env.argc);
-	choose_process(data, tube, pid);
+	printf("%d\n", data->env.argc);
+	// choose_process(data, tube, pid);
 }
 
-void	bonus(t_data *data, t_arg *arg)
+void	bonus(t_data *data)
 {
 	data->env.pos = 0;
 	while (data->env.pos < data->env.argc)
