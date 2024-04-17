@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 23:13:45 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/16 22:39:29 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/17 11:13:51 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ bool	is_brut(t_arg *arg);
 bool	is_nopath(t_data *data, t_arg *arg);
 void	reverse_argv(t_data *data);
 bool	is_fd(t_data *data, t_arg *arg);
-void	null_env(t_data *data);
+void	null_all(t_data *data);
 
 
 bool no_bonus(t_data *data, t_arg *arg);

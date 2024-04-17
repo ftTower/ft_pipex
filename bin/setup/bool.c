@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 14:13:51 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/01 14:18:57 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/17 11:13:41 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,15 @@ bool	is_fd(t_data *data, t_arg *arg)
 	{
 		fd = open(arg->name[0], O_RDONLY);
 		if (fd > 0)
-			return (data->env.in_fd = fd ,arg->fd = fd, arg->type = "IFD", arg->path = NULL, true);
+			return (data->pip.in_fd = fd, arg->fd = fd, arg->type = "IFD",
+				arg->path = NULL, true);
 	}
 	else if (arg->pos == data->env.argc - 1)
 	{
 		fd = open(arg->name[0], O_TRUNC | O_CREAT | O_WRONLY, 0000644);
 		if (fd > 0)
-			return (data->env.ou_fd = fd ,arg->fd = fd, arg->type = "OFD", arg->path = NULL, true);
+			return (data->pip.ou_fd = fd, arg->fd = fd, arg->type = "OFD",
+				arg->path = NULL, true);
 	}
 	return (false);
 }
@@ -67,7 +69,7 @@ bool	is_nopath(t_data *data, t_arg *arg)
 
 bool	setup(int argc, char **argv, char **envp, t_data *data)
 {
-	null_env(data);
+	null_all(data);
 	if (set_env(argc, argv, envp, data))
 		return (terror("set_env failure"), true);
 	if (set_arg(data))

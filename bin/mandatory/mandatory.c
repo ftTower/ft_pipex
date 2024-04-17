@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 13:58:52 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/16 21:34:05 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/17 11:05:47 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ bool	no_bonus(t_data *data, t_arg *arg)
 		close(tube[0]);
 		dup2(tube[1], STDOUT_FILENO);
 		close(tube[1]);
-		dup2(data->env.in_fd, STDIN_FILENO);
-		close(data->env.in_fd);
+		dup2(data->pip.in_fd, STDIN_FILENO);
+		close(data->pip.in_fd);
 		texec(*data, *arg);
 	}
 	else
@@ -50,8 +50,8 @@ bool	no_bonus(t_data *data, t_arg *arg)
 		{
 			close(tube2[0]);
 			close(tube2[1]);
-			dup2(data->env.ou_fd, STDOUT_FILENO);
-			close(data->env.ou_fd);
+			dup2(data->pip.ou_fd, STDOUT_FILENO);
+			close(data->pip.ou_fd);
 			texec(*data, *arg->next);
 		}
 		else

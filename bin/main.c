@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 23:05:38 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/03 18:33:06 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/17 11:13:20 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ bool	pipex(t_data *data)
 	{
 		if (data->env.argc == 4)
 			no_bonus(data, data->arg->next);
-		bonus(data, data->arg->next);
+		bonus(data);
 		return (false);
 	}
 	return (terror("too few args"), true);

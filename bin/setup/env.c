@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 22:25:18 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/03 18:05:24 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/17 11:08:29 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,12 @@ bool	set_env(int argc, char **argv, char **envp, t_data *data)
 	return (data->env.argc = argc - 1, data->env.argv = argv + 1, false);
 }
 
-void	null_env(t_data *data)
+void	null_all(t_data *data)
 {
 	data->env.argc = 0;
-	data->env.status = 0;
 	data->env.argv = NULL;
 	data->env.envp = NULL;
 	data->env.path = NULL;
+	data->pip.pos = 0;
+	data->pip.status = 0;
 }
