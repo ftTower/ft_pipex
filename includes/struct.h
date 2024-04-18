@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 13:53:14 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/17 11:04:56 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/18 18:00:05 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ typedef struct s_env
 
 typedef struct s_pip
 {
+	int tube[2];
+	
 	int				in_fd;
 	int				ou_fd;
 	int				mid_fd;

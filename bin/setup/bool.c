@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 14:13:51 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/17 11:13:41 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/18 17:25:12 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ bool	is_fd(t_data *data, t_arg *arg)
 	}
 	else if (arg->pos == data->env.argc - 1)
 	{
-		fd = open(arg->name[0], O_TRUNC | O_CREAT | O_WRONLY, 0000644);
+		fd = open(arg->name[0], O_TRUNC | O_CREAT | O_WRONLY, 0777);
 		if (fd > 0)
 			return (data->pip.ou_fd = fd, arg->fd = fd, arg->type = "OFD",
 				arg->path = NULL, true);

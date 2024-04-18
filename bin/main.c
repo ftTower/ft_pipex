@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 23:05:38 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/17 11:13:20 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/18 17:40:54 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ bool	pipex(t_data *data)
 {
 	if (data->env.argc >= 4)
 	{
-		if (data->env.argc == 4)
-			no_bonus(data, data->arg->next);
+		// if (data->env.argc == 4)
+		// 	no_bonus(data, data->arg->next);
 		bonus(data);
 		return (false);
 	}
@@ -41,10 +41,10 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 
-	printf("\033c");
+	// printf("\033c");
 	if (setup(argc, argv, envp, &data))
 		return (1);
-	print_data(data);
+	// print_data(data);
 	if (pipex(&data))
 		return (2);
 	return (free_list(&data), free_tab(data.env.path), 0);
