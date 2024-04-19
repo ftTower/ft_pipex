@@ -6,15 +6,20 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 22:28:03 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/16 23:22:58 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/19 15:31:04 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <all.h>
 
-void terror(char *err_msg)
+void terror(char *err_msg, bool	isLast)
 {
-	printf("[ %s ]\n", err_msg);
+	// write(2, " ", 2);
+	write(2, err_msg, ft_strlen(err_msg));
+	if (!isLast)
+		write(2, " -> ", 4);
+	if (isLast)
+		write(1, "\n", 1);
 }
 
 void print_command(t_arg *current)

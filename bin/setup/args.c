@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 22:36:00 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/17 11:08:46 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/19 15:30:27 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ bool	choose_type(t_data *data, t_arg *arg)
 	else if ((is_brut(arg) && arg->path) || is_nopath(data, arg))
 		return (arg->fd = -1, false);
 	return (arg->path = NULL, arg->fd = -1, arg->type = "ERR",
-		terror("arg is no fd or cmd"), true);
+		terror("arg is no fd or cmd", false), true);
 }
 
 bool	data_element(t_data *data, t_arg *arg, t_arg *list, size_t i)
@@ -27,7 +27,7 @@ bool	data_element(t_data *data, t_arg *arg, t_arg *list, size_t i)
 	arg->type = NULL;
 	arg->name = ft_split(data->env.argv[i], " ");
 	if (!arg->name)
-		return (terror("failed to split name in list"), free(arg), true);
+		return (terror("failed to split name in list", false), free(arg), true);
 	return (arg->pos = data->env.argc - i - 1, arg->next = list,
 		data->arg = arg, choose_type(data, arg));
 }
@@ -42,7 +42,7 @@ bool	add_element(t_data *data, size_t i)
 		list = data->arg;
 	arg = malloc(sizeof(t_arg));
 	if (!arg)
-		return (terror("malloc list"), true);
+		return (terror("malloc list", false), true);
 	else if (!list)
 	{
 		free(data->arg);
@@ -55,7 +55,7 @@ bool	init_arg(t_data *data)
 {
 	data->arg = malloc(sizeof(t_arg));
 	if (!data->arg)
-		return (terror("error initing the list"), true);
+		return (terror("error initing the list", false), true);
 	data->arg->name = NULL;
 	data->arg->next = NULL;
 	data->arg->path = NULL;
@@ -74,7 +74,7 @@ bool	create_list(t_data *data)
 		return (true);
 	while (data->env.argv[i])
 		if (add_element(data, i++))
-			return (terror("failed to add element in list"), free_list(data),
+			return (terror("failed to add element in list", false), free_list(data),
 				true);
 	reverse_argv(data);
 	return (false);
@@ -83,6 +83,6 @@ bool	create_list(t_data *data)
 bool	set_arg(t_data *data)
 {
 	if (create_list(data))
-		return (free_tab(data->env.path), terror("new list"), true);
+		return (free_tab(data->env.path), terror("failed to create args list", false), true);
 	return (false);
 }

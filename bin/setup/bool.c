@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 14:13:51 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/18 17:25:12 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/19 15:24:37 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ bool	setup(int argc, char **argv, char **envp, t_data *data)
 {
 	null_all(data);
 	if (set_env(argc, argv, envp, data))
-		return (terror("set_env failure"), true);
+		return (terror("set_env failure", true), true);
 	if (set_arg(data))
-		return (terror("set arg failure"), true);
+		return (terror("set arg failure", true), true);
 	return (false);
 }

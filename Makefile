@@ -1,47 +1,65 @@
-SRC_DIR = bin
-BUILD_DIR = build
-NAME = pipex
-CFLAG = -Wall -Wextra -Werror -I./includes -g3
+SRC_BONUS_DIR       = src_bonus
+BUILD_BONUS_DIR     = build_bonus
+SRC_DIR             = src
+BUILD_DIR           = build
+NAME                = pipex
+CFLAG               = -Wall -Wextra -Werror -I./includes/
 
-SRC = $(shell find $(SRC_DIR) -type f -name '*.c')
-CC = cc
+SRC_MAIN            = ./bin/main/main.c \
+                      ./bin/bonus/bonus.c \
+                      ./bin/mandatory/mandatory.c \
+                      ./bin/print/print.c \
+                      ./bin/setup/args.c \
+                      ./bin/setup/bool.c \
+                      ./bin/setup/env.c \
+                      ./bin/utils/exec.c \
+                      ./bin/utils/free.c \
+                      ./bin/utils/path.c \
+                      ./bin/utils/split.c \
+                      ./bin/utils/utils.c
 
-OBJ = $(patsubst $(SRC_DIR)/%.c,$(BUILD_DIR)/%.o,$(SRC))
+SRC_BONUS           = ./bin/main/main_bonus.c \
+                      ./bin/bonus/bonus.c \
+                      ./bin/mandatory/mandatory.c \
+                      ./bin/print/print.c \
+                      ./bin/setup/args.c \
+                      ./bin/setup/bool.c \
+                      ./bin/setup/env.c \
+                      ./bin/utils/exec.c \
+                      ./bin/utils/free.c \
+                      ./bin/utils/path.c \
+                      ./bin/utils/split.c \
+                      ./bin/utils/utils.c
 
-ARGV = ./bin/utils/exec.c /usr/bin/cat "grep exec" output.txt
+OBJ_MAIN            = $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SRC_MAIN))
+OBJ_BONUS           = $(patsubst $(SRC_BONUS_DIR)/%.c, $(BUILD_BONUS_DIR)/%.o, $(SRC_BONUS))
 
-$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
-	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAG) -c $< -o $@
-	@clear
+CC                  = cc
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	@echo $(OBJ)
-	@$(CC) $(OBJ) -o $(NAME) $(CFLAG)
-	@clear
+$(NAME): $(OBJ_MAIN)
+	@mkdir -p $(dir $@)
+	$(CC) $(OBJ_MAIN) -o $(NAME) $(CFLAG)
 
-clear:
-	@clear
-	@echo "42Paris : $(NAME)"
-	@echo ""
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAG) -c $< -o $@
 
-clean: clear
-	@rm -rf $(BUILD_DIR)
-	@rm *.txt
-	@echo "Clean : *.o in build !"
+bonus: $(OBJ_BONUS)
+	@mkdir -p $(dir $(NAME))
+	$(CC) $(OBJ_BONUS) -o $(NAME) $(CFLAG)
+
+$(BUILD_BONUS_DIR)/%.o: $(SRC_BONUS_DIR)/%.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAG) -c $< -o $@
+
+clean:
+	@rm -rf $(BUILD_DIR) $(BUILD_BONUS_DIR)
 
 fclean: clean
 	@rm -f $(NAME)
-	@echo "Clean : ./$(NAME)"
 
-pip:
-	@valgrind ./$(NAME) $(ARGV)
-
-valgrind: clear
-	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --trace-children=yes ./$(NAME) $(ARGV)
-
-re: fclean all clear
+re: fclean all
 
 .PHONY: all clean fclean re

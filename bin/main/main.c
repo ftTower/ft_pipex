@@ -6,46 +6,30 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 23:05:38 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/18 17:40:54 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/19 16:07:47 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <all.h>
 
-bool	acces_no_bonus(t_data *data, t_arg *current)
+bool	pipex(t_data *data, int BONUS)
 {
-	if (data->env.argc == 4)
-	{
-		current = current->next;
-		no_bonus(data, current);
-		free_list(data);
-		free_tab(data->env.path);
-		return (false);
-	}
-	return (true);
-}
-
-bool	pipex(t_data *data)
-{
-	if (data->env.argc >= 4)
-	{
-		// if (data->env.argc == 4)
-		// 	no_bonus(data, data->arg->next);
-		bonus(data);
-		return (false);
-	}
-	return (terror("too few args"), true);
+	if (BONUS == false && data->env.argc == 4)
+		return (no_bonus(data, data->arg->next));
+	if (BONUS == true && data->env.argc >= 4)
+		return (bonus(data), false);
+	return (terror("wrong number of args", true), true);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 
-	// printf("\033c");
+	write(1, "\033c", 3);
 	if (setup(argc, argv, envp, &data))
 		return (1);
-	// print_data(data);
-	if (pipex(&data))
-		return (2);
-	return (free_list(&data), free_tab(data.env.path), 0);
+	print_data(data);
+	if (pipex(&data, false))
+		texit(&data, EXIT_FAILURE);
+	return (texit(&data, EXIT_FAILURE), 0);
 }

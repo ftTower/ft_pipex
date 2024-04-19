@@ -6,11 +6,18 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 14:16:14 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/02 15:55:58 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/19 14:57:00 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <all.h>
+
+void	texit(t_data *data, int exitMsg)
+{
+	free_list(data);
+	free_tab(data->env.path);
+	exit(exitMsg);
+}
 
 void	free_list(t_data *data)
 {
