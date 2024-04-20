@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 15:51:23 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/20 14:12:09 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/20 19:02:56 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,5 @@ int	main(int argc, char **argv, char **envp)
 	print_data(data);
 	if (pipex(&data, true))
 		texit(&data, EXIT_FAILURE);
-	return (texit(&data, EXIT_FAILURE), 0);
+	return (texit(&data, EXIT_SUCCESS), 0);
 }

@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/30 23:05:38 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/20 19:02:51 by tauer            ###   ########.fr       */
+/*   Created: 2023/11/14 18:11:10 by tauer             #+#    #+#             */
+/*   Updated: 2024/04/20 19:19:43 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <all.h>
 
-int	main(int argc, char **argv, char **envp)
+int	ft_printf(const char *str, ...)
 {
-	t_data	data;
+	va_list	arg;
+	int		ret_size;
+	size_t	i;
 
-	write(1, "\033c", 3);
-	if (setup(argc, argv, envp, &data))
-		return (1);
-	print_data(data);
-	if (pipex(&data, false))
-		texit(&data, EXIT_FAILURE);
-	return (texit(&data, EXIT_SUCCESS), 0);
+	ret_size = 0;
+	i = 0;
+	va_start(arg, str);
+	while (str[i])
+	{
+		if (str[i] != '%')
+			ft_putchar_len(str[i], &ret_size);
+		else if (str[i + 1] != '\0' && str[i++] == '%')
+			ret_size = selecter(str[i], ret_size, arg);
+		i++;
+	}
+	va_end(arg);
+	return (ret_size);
 }

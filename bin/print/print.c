@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 22:28:03 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/20 12:54:31 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/20 19:38:30 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void terror(char *err_msg, bool	isLast)
 	if (!isLast)
 		write(2, " -> ", 4);
 	if (isLast)
-		write(1, "\n", 1);
+		write(1, "\n\n", 2);
 }
 
 void print_command(t_arg *current)
@@ -27,42 +27,20 @@ void print_command(t_arg *current)
 	size_t i;
 
 	i = 0;
-	printf("[%d] | [%s] | [%s]", current->pos, current->type, current->path);
+	ft_printf("[%d] | [\033[38;5;27m%s\033[0m] | [%s]", current->pos, current->type, current->path);
 	while (current->name[i])
-		printf("[%s]", current->name[i++]);
-	printf("\n");
+		ft_printf("[%s]", current->name[i++]);
+	ft_printf("\n");
 }
 
-void	write_line(t_data *data)
-{
-	unsigned int max;
-	unsigned int comp;
-	t_arg *current;
 
-	max = 0;
-	current = data->arg;
-	while(current)
-	{
-		if (ft_strncmp(current->type, "CMD", 2))
-			comp = ft_strlen(current->path) + ft_strlen(current->name[0]) + 5;
-		else if (ft_strncmp(current->type, "IFD", 2) || ft_strncmp(current->type, "OFD", 2))
-			comp = 11 + ft_strlen(current->name[0]);
-		if (comp > max)
-			max = comp;
-		current = current->next;
- 	}
-	write(1, "----+-------+", 14);
-	while(max--)
-		write(1, "-", 1);
-	write(1, "\n", 1);
-}
 
 void print_fd(t_data *data, t_arg *current)
 {
 	if (!current->pos)
 		write(1, "pos   type    fd/path    name  \n", 33);			
 	write_line(data);
-	printf("[%d] | [%s] | [%d] [%s]\n", current->pos, current->type,
+	ft_printf("[%d] | [\033[38;5;154m%s\033[0m] | [%d] [%s]\n", current->pos, current->type,
 		   current->fd, current->name[0]);
 	write_line(data);
 }
@@ -72,15 +50,15 @@ void print_arg(t_data *data)
 	t_arg *current;
 
 	current = data->arg;
-	printf("\n");
+	ft_printf("\n");
 	while (current)
 	{
 		if (ft_strncmp(current->type, "CMD", 2))
 			print_command(current);
-		else if (ft_strncmp(current->type, "IFD", 2) || ft_strncmp(current->type, "OFD", 2))
+		else if (ft_strncmp(current->type, "IFD", 2) || ft_strncmp(current->type, "OFD", 2) || (ft_strncmp(current->type, "ERR", 2) && (current->pos == 0 || current->pos == data->env.argc - 1)))
 			print_fd(data, current);
 		else
-			printf("[%d] | [%s] | [fd : %d] [path : %s] [next : %p] [%s]\n", current->pos, current->type,
+			ft_printf("[%d] | [\033[38;5;196m%s\033[0m] | [fd : %d] [path : %s] [next : %p] [%s]\n", current->pos, current->type,
 				   current->fd, current->path, current->next, current->name[0]);
 		current = current->next;
 	}

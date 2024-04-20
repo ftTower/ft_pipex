@@ -10,6 +10,10 @@ SRC_MAIN            = ./bin/main/main.c \
                       ./bin/pipex/pipex.c \
                       ./bin/pipex/mandatory.c \
                       ./bin/print/print.c \
+                      ./bin/print/ft_printf.c \
+                      ./bin/print/print_functions.c \
+                      ./bin/print/print_functions2.c \
+                      ./bin/print/utils.c \
                       ./bin/setup/args.c \
                       ./bin/setup/bool.c \
                       ./bin/setup/env.c \
@@ -24,6 +28,10 @@ SRC_BONUS           = ./bin/main/main_bonus.c \
                       ./bin/pipex/pipex.c \
                       ./bin/pipex/mandatory.c \
                       ./bin/print/print.c \
+                       ./bin/print/ft_printf.c \
+                      ./bin/print/print_functions.c \
+                      ./bin/print/print_functions2.c \
+                      ./bin/print/utils.c \
                       ./bin/setup/args.c \
                       ./bin/setup/bool.c \
                       ./bin/setup/env.c \

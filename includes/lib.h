@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 13:52:38 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/01 13:53:06 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/20 19:20:20 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,6 @@
 #include <stdbool.h>
 # include <fcntl.h>
 # include <sys/wait.h>
+# include <stdarg.h>
 
 #endif
