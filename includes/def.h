@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 23:13:45 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/19 15:53:21 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/20 14:05:24 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,11 @@ char	*ft_itoa(int nb);
 void	terror(char *err_msg, bool isLast);
 void	texit(t_data *data, int exitMsg);
 
+void	forker(t_data *data);
+
 bool	envl(t_data *data);
+bool	pipex(t_data *data, int BONUS);
+bool    tryRescueCmd(t_data *data, int status);
+void    check_err(t_data *data, int *status);
 
 #endif

@@ -6,8 +6,9 @@ NAME                = pipex
 CFLAG               = -Wall -Wextra -Werror -I./includes/
 
 SRC_MAIN            = ./bin/main/main.c \
-                      ./bin/bonus/bonus.c \
-                      ./bin/mandatory/mandatory.c \
+                      ./bin/pipex/bonus.c \
+                      ./bin/pipex/pipex.c \
+                      ./bin/pipex/mandatory.c \
                       ./bin/print/print.c \
                       ./bin/setup/args.c \
                       ./bin/setup/bool.c \
@@ -19,8 +20,9 @@ SRC_MAIN            = ./bin/main/main.c \
                       ./bin/utils/utils.c
 
 SRC_BONUS           = ./bin/main/main_bonus.c \
-                      ./bin/bonus/bonus.c \
-                      ./bin/mandatory/mandatory.c \
+                      ./bin/pipex/bonus.c \
+                      ./bin/pipex/pipex.c \
+                      ./bin/pipex/mandatory.c \
                       ./bin/print/print.c \
                       ./bin/setup/args.c \
                       ./bin/setup/bool.c \

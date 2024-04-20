@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 22:28:03 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/19 15:31:04 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/20 12:54:31 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void print_fd(t_data *data, t_arg *current)
 	if (!current->pos)
 		write(1, "pos   type    fd/path    name  \n", 33);			
 	write_line(data);
-	printf("[%d] | [%s] | [fd : %d][%s]\n", current->pos, current->type,
+	printf("[%d] | [%s] | [%d] [%s]\n", current->pos, current->type,
 		   current->fd, current->name[0]);
 	write_line(data);
 }
@@ -80,8 +80,8 @@ void print_arg(t_data *data)
 		else if (ft_strncmp(current->type, "IFD", 2) || ft_strncmp(current->type, "OFD", 2))
 			print_fd(data, current);
 		else
-			printf("[%d][%s][%d][%s][%s][%p]\n", current->pos, current->type,
-				   current->fd, current->path, current->name[0], current->next);
+			printf("[%d] | [%s] | [fd : %d] [path : %s] [next : %p] [%s]\n", current->pos, current->type,
+				   current->fd, current->path, current->next, current->name[0]);
 		current = current->next;
 	}
 }
