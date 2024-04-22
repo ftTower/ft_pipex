@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 22:28:03 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/22 14:27:17 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/22 15:24:43 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	terror(char *err_msg, bool isLast)
 {
-	// write(2, " ", 2);
 	write(2, err_msg, ft_strlen(err_msg));
 	if (!isLast)
 		write(2, " -> ", 4);

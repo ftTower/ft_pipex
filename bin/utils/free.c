@@ -6,16 +6,27 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 14:16:14 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/22 12:37:04 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/22 15:37:59 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <all.h>
 
+void	close_if_fd(t_data *data)
+{
+	if (data->pip.in_fd >= 0)
+		close(data->pip.in_fd);
+	if (data->pip.ou_fd >= 0)
+		close(data->pip.ou_fd);
+	if (data->pip.safety_fd >= 0)
+		close(data->pip.safety_fd);
+}
+
 void	texit(t_data *data, int exitMsg)
 {
 	free_list(data);
 	free_tab(data->env.path);
+	close_if_fd(data);
 	exit(exitMsg);
 }
 

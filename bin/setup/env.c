@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 22:25:18 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/22 13:06:12 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/22 15:29:35 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,24 +39,4 @@ bool	set_path(t_data *data)
 	if (!data->env.path)
 		return (terror("failed to split path", false), true);
 	return (false);
-}
-
-bool	set_env(int argc, char **argv, char **envp, t_data *data)
-{
-	if (argc < 4 || !argv)
-		return (terror("bad args", false), true);
-	if (envp)
-		data->env.envp = envp;
-	if (set_path(data))
-		return (true);
-	return (data->env.argc = argc - 1, data->env.argv = argv + 1, false);
-}
-
-void	null_all(t_data *data)
-{
-	data->env.argc = 0;
-	data->env.argv = NULL;
-	data->env.envp = NULL;
-	data->env.path = NULL;
-	data->pip.pos = 0;
 }

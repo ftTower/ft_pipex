@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 13:59:34 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/01 14:15:51 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/22 15:33:44 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ bool	ft_strncmp(const char *s1, const char *s2, size_t n)
 
 char	*ft_strdup(const char *s)
 {
-	size_t len_s;
-	char *str;
-	char *ptr;
+	size_t	len_s;
+	char	*str;
+	char	*ptr;
 
 	len_s = ft_strlen(s);
 	str = (char *)malloc(sizeof(char) * (len_s + 1));

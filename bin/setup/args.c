@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 22:36:00 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/20 13:27:57 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/22 15:32:43 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ bool	choose_type(t_data *data, t_arg *arg)
 	else if ((is_brut(arg) && arg->path) || is_nopath(data, arg))
 		return (arg->fd = -1, false);
 	return (arg->path = NULL, arg->fd = -1, arg->type = "ERR",
-		terror("arg is no fd or cmd. trying exec last command...", true), false);
+		terror("arg is no fd or cmd. trying exec last command...", true),
+		false);
 }
 
 bool	data_element(t_data *data, t_arg *arg, t_arg *list, size_t i)
@@ -74,15 +75,8 @@ bool	create_list(t_data *data)
 		return (true);
 	while (data->env.argv[i])
 		if (add_element(data, i++))
-			return (terror("failed to add element in list", false), free_list(data),
-				true);
+			return (terror("failed to add element in list", false),
+				free_list(data), true);
 	reverse_argv(data);
-	return (false);
-}
-
-bool	set_arg(t_data *data)
-{
-	if (create_list(data))
-		return (free_tab(data->env.path), terror("failed to create args list", false), true);
 	return (false);
 }

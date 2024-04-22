@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 22:02:29 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/22 14:24:58 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/22 15:24:49 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void	write_line(void)
 {
-	unsigned int max;
+	unsigned int	max;
 
 	max = 20;
 	write(1, "----+-------+", 14);
-	while(max--)
+	while (max--)
 		write(1, "-", 1);
 	write(1, "\n", 1);
 }

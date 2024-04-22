@@ -3,20 +3,20 @@ BUILD_BONUS_DIR     = build_bonus
 SRC_DIR             = src
 BUILD_DIR           = build
 NAME                = pipex
-CFLAG               = -Wall -Wextra -Werror -I./includes/
+CFLAG               = -Wall -Wextra -Werror -I./includes/ -g3
 
 SRC_MAIN            = ./bin/main/main.c \
                       ./bin/pipex/bonus.c \
                       ./bin/pipex/pipex.c \
-                      ./bin/pipex/mandatory.c \
                       ./bin/print/print.c \
                       ./bin/print/ft_printf.c \
                       ./bin/print/print_functions.c \
                       ./bin/print/print_functions2.c \
                       ./bin/print/utils.c \
                       ./bin/setup/args.c \
-                      ./bin/setup/bool.c \
+                      ./bin/setup/setup.c \
                       ./bin/setup/env.c \
+                      ./bin/utils/bool.c \
                       ./bin/utils/exec.c \
                       ./bin/utils/free.c \
                       ./bin/utils/path.c \
@@ -26,15 +26,15 @@ SRC_MAIN            = ./bin/main/main.c \
 SRC_BONUS           = ./bin/main/main_bonus.c \
                       ./bin/pipex/bonus.c \
                       ./bin/pipex/pipex.c \
-                      ./bin/pipex/mandatory.c \
                       ./bin/print/print.c \
-                       ./bin/print/ft_printf.c \
+                      ./bin/print/ft_printf.c \
                       ./bin/print/print_functions.c \
                       ./bin/print/print_functions2.c \
                       ./bin/print/utils.c \
                       ./bin/setup/args.c \
-                      ./bin/setup/bool.c \
+                      ./bin/setup/setup.c \
                       ./bin/setup/env.c \
+                      ./bin/utils/bool.c \
                       ./bin/utils/exec.c \
                       ./bin/utils/free.c \
                       ./bin/utils/path.c \
