@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 22:25:18 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/20 14:23:10 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/22 13:06:12 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,4 @@ void	null_all(t_data *data)
 	data->env.envp = NULL;
 	data->env.path = NULL;
 	data->pip.pos = 0;
-	data->pip.status = 0;
 }

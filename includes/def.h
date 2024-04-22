@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 23:13:45 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/20 19:29:36 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/22 14:25:40 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void reverse_argv(t_data *data);
 bool is_fd(t_data *data, t_arg *arg);
 void null_all(t_data *data);
 
-bool no_bonus(t_data *data, t_arg *arg);
+void no_bonus(t_data *data);
 void bonus(t_data *data);
 
 void print_data(t_data data);
@@ -45,7 +45,7 @@ char *ft_itoa(int nb);
 void terror(char *err_msg, bool isLast);
 void texit(t_data *data, int exitMsg);
 
-void forker(t_data *data);
+void	forker(t_data *data, bool RescueCmd);
 
 bool envl(t_data *data);
 bool pipex(t_data *data, int BONUS);
@@ -63,7 +63,7 @@ void ft_putptr_len(void *ptr, int *len);
 
 void ft_putnbr_base(int nbr, char *base, int *len);
 void ft_putnbr_un(unsigned int nbr, char *base, int *len);
-void write_line(t_data *data);
+void write_line(void);
 
 extern int ft_printf(const char *str, ...);
 

@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 14:13:51 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/19 15:24:37 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/22 13:10:26 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@ bool	is_fd(t_data *data, t_arg *arg)
 {
 	int	fd;
 
+	data->pip.safetyFd = open("/dev/null", O_RDONLY);
+	if (data->pip.safetyFd < 0)
+		return (false);
 	if (arg->pos == 0)
 	{
 		fd = open(arg->name[0], O_RDONLY);

@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 13:53:14 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/20 13:00:17 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/22 13:05:50 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,9 @@ typedef struct s_pip
 	
 	int				in_fd;
 	int				ou_fd;
-	int				mid_fd;
+	int				safetyFd;
 	int				pos;
-	int				status;
-	//status 0 : ok
-	//status 1 : ok without env
-	//status 2 : try with last command
-	//status 3 : not ok no in fd or ou fd or wrong args
+
 }					t_pip;
 
 typedef struct s_data

@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 18:29:11 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/19 16:24:24 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/22 14:09:26 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,13 @@ void	redir(t_data *data, int in, int out)
 	dup2(out, STDOUT_FILENO);
 }
 
-void	child_process(t_data *data, int *tube, t_arg *arg)
+void	child_process(t_data *data, int *tube, t_arg *arg, bool RescueCmd)
 {
 	close(tube[0]);
 	if (data->pip.pos == 1)
 		redir(data, data->pip.in_fd, tube[1]);
+	else if (RescueCmd && data->pip.pos == data->env.argc - 2)
+		redir(data, data->pip.safetyFd, data->pip.ou_fd);
 	else if (data->pip.pos == data->env.argc - 2)
 		redir(data, tube[0], data->pip.ou_fd);
 	else
@@ -47,12 +49,12 @@ void	child_process(t_data *data, int *tube, t_arg *arg)
 	texec(*data, *arg);
 }
 
-void	choose_proccess(t_data *data, int *tube, int pid)
+void	choose_proccess(t_data *data, int *tube, int pid, bool RescueCmd)
 {
 	if (pid == -1)
 		return ;
 	else if (pid == 0)
-		child_process(data, tube, choose_arg(data));
+		child_process(data, tube, choose_arg(data), RescueCmd);
 	else
 	{
 		close(tube[1]);
@@ -61,7 +63,7 @@ void	choose_proccess(t_data *data, int *tube, int pid)
 	}
 }
 
-void	forker(t_data *data)
+void	forker(t_data *data, bool RescueCmd)
 {
 	int	tube[2];
 	int	pid;
@@ -71,7 +73,7 @@ void	forker(t_data *data)
 	pid = fork();
 	if (pid == -1)
 		texit(data, EXIT_FAILURE);
-	choose_proccess(data, tube, pid);
+	choose_proccess(data, tube, pid, RescueCmd);
 }
 
 void	bonus(t_data *data)
@@ -80,7 +82,7 @@ void	bonus(t_data *data)
 	while (data->pip.pos < data->env.argc - 2)
 	{
 		data->pip.pos++;
-		forker(data);
+		forker(data, false);
 	}
 	while (wait(NULL) > 0)
 		;

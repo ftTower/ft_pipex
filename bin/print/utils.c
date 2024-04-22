@@ -6,30 +6,17 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 22:02:29 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/20 19:29:27 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/22 14:24:58 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <all.h>
 
-void	write_line(t_data *data)
+void	write_line(void)
 {
 	unsigned int max;
-	unsigned int comp;
-	t_arg *current;
 
-	max = 0;
-	current = data->arg;
-	while(current)
-	{
-		if (ft_strncmp(current->type, "CMD", 2))
-			comp = ft_strlen(current->path) + ft_strlen(current->name[0]) + 5;
-		else if (ft_strncmp(current->type, "IFD", 2) || ft_strncmp(current->type, "OFD", 2))
-			comp = 11 + ft_strlen(current->name[0]);
-		if (comp > max)
-			max = comp;
-		current = current->next;
- 	}
+	max = 20;
 	write(1, "----+-------+", 14);
 	while(max--)
 		write(1, "-", 1);
