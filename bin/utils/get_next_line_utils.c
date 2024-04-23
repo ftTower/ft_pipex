@@ -6,110 +6,81 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 13:01:50 by marvin            #+#    #+#             */
-/*   Updated: 2024/04/23 10:39:16 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/23 23:23:45 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <all.h>
 
-t_list	*ft_lst_get_last(t_list *stash)
+void	ft_strmcat(char **dst, char *src)
 {
-	t_list	*current;
+	char	*out;
+	int		dst_len;
+	int		src_len;
+	int		k;
 
-	current = stash;
-	while (current && current->next)
-		current = current->next;
-	return (current);
-}
-
-int	find_newline(t_list *stash)
-{
-	int		i;
-	t_list	*current;
-
-	if (stash == NULL)
-		return (0);
-	current = ft_lst_get_last(stash);
-	i = 0;
-	while (current->content[i])
+	dst_len = ft_strlen(*dst);
+	src_len = ft_strlen(src);
+	out = malloc((dst_len + src_len + 1) * sizeof(char));
+	k = 0;
+	while (k < (dst_len + src_len))
 	{
-		if (current->content[i] == '\n')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-void	add_to_stash(t_list **stash, char *buff, int readed)
-{
-	int		i;
-	t_list	*last;
-	t_list	*new_node;
-
-	new_node = malloc(sizeof(t_list));
-	if (new_node == NULL)
-		return ;
-	new_node->next = NULL;
-	new_node->content = malloc(sizeof(char) * (readed + 1));
-	if (new_node->content == NULL)
-		return ;
-	i = 0;
-	while (buff[i] && i < readed)
-	{
-		new_node->content[i] = buff[i];
-		i++;
-	}
-	new_node->content[i] = '\0';
-	if (*stash == NULL)
-	{
-		*stash = new_node;
-		return ;
-	}
-	last = ft_lst_get_last(*stash);
-	last->next = new_node;
-}
-
-void	read_and_stash(t_list **stash, int *readed_ptr, int fd)
-{
-	char	*buff;
-
-	while (!find_newline(*stash) && *readed_ptr != 0)
-	{
-		buff = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-		if (buff == NULL)
-			return ;
-		*readed_ptr = (int)read(fd, buff, BUFFER_SIZE);
-		if ((*stash == NULL && *readed_ptr == 0) || *readed_ptr == -1)
+		if (k < dst_len)
+			out[k] = (*dst)[k];
+		else
 		{
-			free(buff);
-			return ;
-		}
-		buff[*readed_ptr] = '\0';
-		add_to_stash(stash, buff, *readed_ptr);
-		free(buff);
-	}
-}
-
-void	generate_line(char **line, t_list *stash)
-{
-	int i;
-	int len;
-
-	len = 0;
-	while (stash)
-	{
-		i = 0;
-		while (stash->content[i])
-		{
-			if (stash->content[i] == '\n')
-			{
-				len++;
+			if (src[k - dst_len] == -1)
 				break ;
-			}
-			len++;
-			i++;
+			out[k] = src[k - dst_len];
 		}
-		stash = stash->next;
+		k++;
 	}
-	*line = malloc(sizeof(char) * (len + 1));
+	out[k] = 0;
+	free(*dst);
+	*dst = out;
+}
+
+unsigned long	ft_strlcpy(char *dst, const char *src, unsigned long sz)
+{
+	unsigned long	len;
+
+	len = (ft_strlen(src));
+	if (!sz)
+		return (len);
+	while (*src && sz-- - 1)
+		*dst++ = *src++;
+	*dst = '\0';
+	return (len);
+}
+
+int	has_char(char *str, char c)
+{
+	int	k;
+
+	k = -1;
+	if (!str)
+		return (-1);
+	while (str[++k])
+		if (str[k] == c)
+			return (k);
+	return (-1);
+}
+
+char	*ft_substr(char const *s, unsigned long start, unsigned long len)
+{
+	char			*t;
+	unsigned long	i;
+
+	if (!s)
+		return (NULL);
+	if (start > ft_strlen(s))
+		return (ft_stralloc(1, 0));
+	i = ft_strlen(s + start);
+	if (len > i)
+		len = i;
+	t = (char *)malloc(sizeof(char) * (len + 1));
+	if (!t)
+		return (NULL);
+	ft_strlcpy(t, s + start, len + 1);
+	return (t);
 }

@@ -6,108 +6,103 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 22:38:23 by marvin            #+#    #+#             */
-/*   Updated: 2024/04/23 10:52:23 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/23 23:23:52 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <all.h>
 
-void	extract_line(t_list *stash, char **line)
+void	ft_strnset(char *str, char c, int n)
 {
-	int	i;
-	int	j;
+	while (--n >= 0)
+		str[n] = c;
+}
 
-	if (stash == NULL)
-		return ;
-	generate_line(line, stash);
-	if (*line == NULL)
-		return ;
-	j = 0;
-	while (stash)
+char	*ft_stralloc(int len, char c)
+{
+	char	*out;
+
+	out = malloc(len);
+	if (!out)
+		return (0);
+	while (--len >= 0)
+		out[len] = c;
+	return (out);
+}
+
+void	gnlwatch(int fd, char **save)
+{
+	char	*buffer;
+	int		read_len;
+
+	if (!*save)
+		*save = ft_stralloc(1, 0);
+	buffer = ft_stralloc(BUFFER_SIZE + 1, 0);
+	while (1)
 	{
-		i = 0;
-		while (stash->content[i])
+		ft_strnset(buffer, 0, BUFFER_SIZE);
+		read_len = read(fd, buffer, BUFFER_SIZE);
+		if (read_len <= 0)
 		{
-			if (stash->content[i] == '\n')
-			{
-				(*line)[j++] = stash->content[i];
+			if (ft_strlen(*save) > 0)
 				break ;
-			}
-			(*line)[j++] = stash->content[i++];
+			free(*save);
+			*save = 0;
+			break ;
 		}
-		stash = stash->next;
+		ft_strmcat(save, buffer);
+		if (read_len < BUFFER_SIZE)
+			break ;
+		if (has_char(*save, 10) != -1)
+			break ;
 	}
-	(*line)[j] = '\0';
+	free(buffer);
 }
 
-void	free_stash(t_list *stash)
+char	*gnlget(int fd, char **line, char **save)
 {
-	t_list	*current;
-	t_list	*next;
-
-	current = stash;
-	while (current)
-	{
-		free(current->content);
-		next = current->next;
-		free(current);
-		current = next;
-	}
-}
-
-void	clear_stash(t_list **stash)
-{
-	t_list	*last;
-	t_list	*clean_node;
+	char	*new_save;
+	int		len_save;
 	int		i;
-	int		j;
 
-	clean_node = malloc(sizeof(t_list));
-	if (stash == NULL || clean_node == NULL)
-		return ;
-	clean_node->next = NULL;
-	last = ft_lst_get_last(*stash);
 	i = 0;
-	while (last->content[i] && last->content[i] != '\n')
-		i++;
-	if (last->content && last->content[i] == '\n')
-		i++;
-	clean_node->content = malloc(sizeof(char) * ((ft_strlen(last->content) - i)
-				+ 1));
-	if (clean_node == NULL)
-		return ;
-	j = 0;
-	while (last->content[i])
-		clean_node->content[j++] = last->content[i++];
-	clean_node->content[j] = '\0';
-	free_stash(*stash);
-	*stash = clean_node;
+	if (!*save)
+		*save = ft_stralloc(1, 0);
+	gnlwatch(fd, &*save);
+	len_save = ft_strlen(*save);
+	i = has_char(*save, 10);
+	if (i == -1)
+		i = len_save;
+	*line = ft_substr(*save, 0, i + 1);
+	len_save = ft_strlen(*save);
+	if (i == len_save)
+		new_save = NULL;
+	else
+		new_save = ft_substr(*save, i + 1, len_save - i + 1);
+	if (*save)
+		free(*save);
+	*save = new_save;
+	return (*line);
 }
 
 char	*get_next_line(int fd)
 {
-	static t_list *stash = NULL;
-	char *line;
-	int readed;
+	static char	*saves[1024];
+	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE < 0 || read(fd, &line, 0) < 0)
-		return (NULL);
-	readed = 1;
-	line = NULL;
-	// read from fd and add to linker list
-	read_and_stash(&stash, &readed, fd);
-	if (stash == NULL)
-		return (NULL);
-	// extract from stash to line
-	extract_line(stash, &line);
-	// cleanup la stash
-	clear_stash(&stash);
-	if (line[0] == '\0')
+	if (fd < 0 || fd > 1024 || read(fd, 0, 0) < 0 || BUFFER_SIZE <= 0)
 	{
-		free_stash(stash);
-		stash = NULL;
-		free(line);
+		if (saves[fd])
+			free(saves[fd]);
+		saves[fd] = NULL;
 		return (NULL);
+	}
+	line = NULL;
+	gnlget(fd, &line, &saves[fd]);
+	if (!line)
+	{
+		free(saves[fd]);
+		saves[fd] = NULL;
 	}
 	return (line);
 }

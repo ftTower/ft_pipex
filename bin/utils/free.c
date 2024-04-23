@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 14:16:14 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/22 15:37:59 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/23 22:24:53 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ void	free_tab(char **tab)
 	int	i;
 
 	i = 0;
+	if (!tab || !tab[0])
+		return ;
 	while (tab[i])
 		free(tab[i++]);
 	free(tab);

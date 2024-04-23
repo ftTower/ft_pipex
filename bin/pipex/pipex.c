@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:31:51 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/22 15:36:54 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/23 23:27:35 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	check_err(t_data *data, int *status)
 	current = data->arg;
 	while (current)
 	{
+		printf("%d - %s\n", current->fd, current->name[0]);
 		if ((current->pos == 0 || current->pos == data->env.argc - 1)
 			&& (ft_strncmp(current->type, "ERR", 3)))
 			return (*status = 4, terror("\nbad in_fd or ou_fd", true));
