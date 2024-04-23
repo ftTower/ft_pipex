@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 23:13:45 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/22 15:35:06 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/23 10:38:05 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,12 @@ bool		set_path(t_data *data);
 bool		create_list(t_data *data);
 
 extern int	ft_printf(const char *str, ...);
+
+t_list		*ft_lst_get_last(t_list *stash);
+int			find_newline(t_list *stash);
+void		add_to_stash(t_list **stash, char *buff, int readed);
+void		read_and_stash(t_list **stash, int *readed_ptr, int fd);
+void		generate_line(char **line, t_list *stash);
+char		*get_next_line(int fd);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 22:28:03 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/22 15:24:43 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/23 11:45:06 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,16 @@ void	print_command(t_arg *current, bool isError)
 	ft_printf("\n");
 }
 
-void	print_fd(t_arg *current, bool isError)
+void	print_fd(t_arg *current, bool isError, bool isHeredoc)
 {
 	if (!current->pos)
 		write(1, "pos   type    fd/path    name  \n", 33);
 	write_line();
 	if (isError)
 		ft_printf("[%d] | [\033[38;5;196m%s\033[0m] | [%d] [%s]\n",
+			current->pos, current->type, current->fd, current->name[0]);
+	else if (isHeredoc)
+		ft_printf("[%d] | [\033[38;5;154m%s\033[0m] | [%d] [%s]\n",
 			current->pos, current->type, current->fd, current->name[0]);
 	else
 		ft_printf("[%d] | [\033[38;5;154m%s\033[0m] | [%d] [%s]\n",
@@ -64,10 +67,10 @@ void	print_arg(t_data *data)
 					|| current->pos != data->env.argc - 1)))
 			print_command(current, ft_strncmp(current->type, "ERR", 2));
 		else if (ft_strncmp(current->type, "IFD", 2)
-			|| ft_strncmp(current->type, "OFD", 2) || (ft_strncmp(current->type,
+			|| ft_strncmp(current->type, "OFD", 2) || ft_strncmp(current->type, "HDC", 2) || (ft_strncmp(current->type,
 					"ERR", 2) && (current->pos == 0
 					|| current->pos == data->env.argc - 1)))
-			print_fd(current, ft_strncmp(current->type, "ERR", 2));
+			print_fd(current, ft_strncmp(current->type, "ERR", 2), ft_strncmp(current->type, "HDC", 2));
 		current = current->next;
 	}
 }

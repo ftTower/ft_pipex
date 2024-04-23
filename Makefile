@@ -21,7 +21,9 @@ SRC_MAIN            = ./bin/main/main.c \
                       ./bin/utils/free.c \
                       ./bin/utils/path.c \
                       ./bin/utils/split.c \
-                      ./bin/utils/utils.c
+                      ./bin/utils/utils.c \
+                      ./bin/utils/get_next_line.c \
+                      ./bin/utils/get_next_line_utils.c \
 
 SRC_BONUS           = ./bin/main/main_bonus.c \
                       ./bin/pipex/bonus.c \
@@ -39,7 +41,9 @@ SRC_BONUS           = ./bin/main/main_bonus.c \
                       ./bin/utils/free.c \
                       ./bin/utils/path.c \
                       ./bin/utils/split.c \
-                      ./bin/utils/utils.c
+                      ./bin/utils/utils.c \
+                      ./bin/utils/get_next_line.c \
+                      ./bin/utils/get_next_line_utils.c \
 
 OBJ_MAIN            = $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SRC_MAIN))
 OBJ_BONUS           = $(patsubst $(SRC_BONUS_DIR)/%.c, $(BUILD_BONUS_DIR)/%.o, $(SRC_BONUS))

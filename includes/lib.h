@@ -6,12 +6,13 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 13:52:38 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/22 15:35:16 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/23 10:38:21 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIB_H
 # define LIB_H
+
 
 # include <fcntl.h>
 # include <stdarg.h>
