@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 22:28:03 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/23 11:45:06 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/24 16:24:35 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,11 @@ void	print_arg(t_data *data)
 					|| current->pos != data->env.argc - 1)))
 			print_command(current, ft_strncmp(current->type, "ERR", 2));
 		else if (ft_strncmp(current->type, "IFD", 2)
-			|| ft_strncmp(current->type, "OFD", 2) || ft_strncmp(current->type, "HDC", 2) || (ft_strncmp(current->type,
-					"ERR", 2) && (current->pos == 0
-					|| current->pos == data->env.argc - 1)))
-			print_fd(current, ft_strncmp(current->type, "ERR", 2), ft_strncmp(current->type, "HDC", 2));
+			|| ft_strncmp(current->type, "OFD", 2) || ft_strncmp(current->type,
+				"HDC", 2) || (ft_strncmp(current->type, "ERR", 2)
+				&& (current->pos == 0 || current->pos == data->env.argc - 1)))
+			print_fd(current, ft_strncmp(current->type, "ERR", 2),
+				ft_strncmp(current->type, "HDC", 2));
 		current = current->next;
 	}
 }
