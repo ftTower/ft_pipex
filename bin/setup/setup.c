@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 14:13:51 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/23 22:21:36 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/24 15:59:09 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,5 @@ bool	setup(int argc, char **argv, char **envp, t_data *data)
 		return (terror("set_env failure", true), true);
 	if (set_arg(data))
 		return (terror("set arg failure", true), true);
-	return (heredoc_cleaner(data), false);
+	return (false);
 }
