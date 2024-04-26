@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 18:29:11 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/22 15:37:21 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/26 16:34:17 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	child_process(t_data *data, int *tube, t_arg *arg, bool RescueCmd)
 	else
 		redir(data, tube[0], tube[1]);
 	close(tube[1]);
+	close_if_fd(data);
 	texec(*data, *arg);
 }
 

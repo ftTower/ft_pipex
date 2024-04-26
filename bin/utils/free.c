@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 14:16:14 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/23 22:24:53 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/26 17:16:53 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	texit(t_data *data, int exitMsg)
 {
 	free_list(data);
 	free_tab(data->env.path);
-	close_if_fd(data);
 	exit(exitMsg);
 }
 

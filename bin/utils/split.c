@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_split.c                                      :+:      :+:    :+:   */
+/*   split.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 00:19:43 by tauer             #+#    #+#             */
-/*   Updated: 2024/04/01 14:00:14 by tauer            ###   ########.fr       */
+/*   Updated: 2024/04/26 16:58:08 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,13 @@ char	**inoutput_split(char *str, char *charset)
 char	**ft_split(char *str, char *charset)
 {
 	char	**tab_split;
+	char	*temp;
 
+	temp = NULL;
 	if (!(str))
 		return (NULL);
-	tab_split = inoutput_split(str, charset);
-	return (tab_split);
+	if (ft_strlen(str) == 1)
+		return (temp = path_maker(str, " "), tab_split = inoutput_split(temp,
+				charset), free(temp), tab_split);
+	return (tab_split = inoutput_split(str, charset), tab_split);
 }
