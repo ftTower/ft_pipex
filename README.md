@@ -73,7 +73,7 @@ Le projet peut être compilé en utilisant les règles du Makefile suivantes :
 - Gestion des erreurs sans interruption inattendue.
 - Pas de fuites de mémoire.
 
-## Remarque
+## Remarques
 
 Le programme a été validé avec succès à 115%. ✅
 
