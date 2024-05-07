@@ -1,5 +1,8 @@
 # ft_pipex
 
+![alt tag]((https://github.com/thomaue/ft_pipex/blob/main/errorcmd.png))
+
+
 ## Description
 
 Ce projet implémente un programme appelé `pipex` qui simule le comportement de la commande shell `< file1 cmd1 | cmd2 > file2`. Il prend quatre arguments : `file1`, `cmd1`, `cmd2`, et `file2`, où `file1` et `file2` sont des noms de fichiers, et `cmd1` et `cmd2` sont des commandes shell avec leurs paramètres respectifs.
@@ -22,6 +25,8 @@ Devrait être identique à `< infile ls -l | wc -l > outfile`.
 $> ./pipex infile "grep a1" "wc -w" outfile
 ```
 Devrait être identique à `< infile grep a1 | wc -w > outfile`.
+
+![alt tag]([https://github.com/thomaue/ft_push_swap/blob/main/binary-radix.svg](https://github.com/thomaue/ft_pipex/blob/main/basic.png))
 
 ## Fonctionnalités
 
