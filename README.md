@@ -1,6 +1,6 @@
 # ft_pipex
 
-![alt tag](https://github.com/thomaue/ft_pipex/blob/main/errorcmd.png)
+![alt tag](https://github.com/ftTower/ft_pipex/blob/main/errorcmd.png)
 
 
 ## Description
@@ -26,7 +26,7 @@ $> ./pipex infile "grep a1" "wc -w" outfile
 ```
 Devrait être identique à `< infile grep a1 | wc -w > outfile`.
 
-![alt tag](https://github.com/thomaue/ft_pipex/blob/main/basic.png)
+![alt tag](https://github.com/ftTower/ft_pipex/blob/main/basic.png)
 
 ## Fonctionnalités
 
